@@ -1,0 +1,48 @@
+<div class="row" id="errorMsg" style="display:none">
+  <div class="col-md-12">
+    <div class="alert alert-danger">
+      Error: {{errorMsg}}
+    </div>
+  </div>
+</div>
+
+<div class="row" id="successMsg" style="display:none">
+  <div class="col-md-12">
+    <div class="alert alert-success">
+      {{successMsg}}
+    </div>
+  </div>
+</div>
+
+
+<div class="row panel panel-default">
+  <div class="col-md-12">
+    <h2>Launch <i class="fa fa-refresh" ng-click="Overlays(true)"></i></h2>
+    
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Game</th>
+              <th>Host</th>
+              <th>Launch</th>
+            </tr>
+          </thead>
+          <tbody ng-repeat="overlay in overlays">
+            <tr>
+              <td colspan="4">{{overlay.name}}</td>
+            </tr>
+            <tr ng-repeat="instance in overlay.instances">
+              <td>{{instance.name}}</td>
+              <td>{{instance.game}}</td>
+              <td>{{instance.host}}:{{instance.port}}</td>
+              <td><button type="button" class="btn btn-default" ng-click="Launch(instance)"><span class="glyphicon glyphicon-open"></span> Launch</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    
+  </div>
+
+</div>
