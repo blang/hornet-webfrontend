@@ -1,30 +1,27 @@
 'use strict';
 
 angular.module('hornetApp')
-  .controller('ConfigCtrl', function ($scope, $http) {
+  .controller('ConfigCtrl', function ($scope, $http, hornet) {
     // Data holders
     $scope.config = {};
 
     // Methods
     $scope.Fetch = function() {
-      $http.get('http://127.0.0.1:7000/config').success(function (data){
+      hornet.Config().then(function(data){
         $scope.config = data;
-      }).error(function(data, status, headers, config) {
-        console.log('error', data, status, headers, config);
-        showErrorMessage(data.error);
+      }, function(error) {
+        showErrorMessage(error);
       });
     };
 
     $scope.Save = function() {
-      $http.post('http://127.0.0.1:7000/config',$scope.config).success(function (data){
-        console.log('Save returned data: ',data);
-        $scope.$emit('API:connected');
+      hornet.SetConfig($scope.config).then(function(data) {
         $scope.config = data;
         showSuccessMessage('Successfully saved');
-      }).error(function(data, status, headers, config) {
-        console.log('error', data, status, headers, config);
-        showErrorMessage(data.error);
+      }, function(error) {
+        showErrorMessage(error);
       });
+      
     };
 
     $scope.Fetch();
