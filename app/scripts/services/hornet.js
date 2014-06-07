@@ -1,13 +1,11 @@
 'use strict';
 
 angular.module('hornetApp')
-.service('hornet', function($http, $q, $rootScope, $location){
-  var stingerBaseUrl = 'http://127.0.0.1:9003';
-  var hornetBaseUrl = 'http://127.0.0.1:7000';
+.service('hornet', function($http, $q, $rootScope, $location, CONFIG){
   
   this.Ping = function() {
     var deferred = $q.defer();
-    $http.get(hornetBaseUrl+'/ping').success(function () {
+    $http.get(CONFIG.hornetBaseUrl+'/ping').success(function () {
       console.log('Ping successful');
       deferred.resolve();
     }).error(function() {
@@ -19,7 +17,7 @@ angular.module('hornetApp')
 
   this.Overlays = function() {
     var deferred = $q.defer();
-    $http.get(stingerBaseUrl+'/overlay').success(function (data) {
+    $http.get(CONFIG.stingerBaseUrl+'/overlay').success(function (data) {
       console.log('Data', data);
       deferred.resolve(data);
     }).error(function(data, status, headers, config) {
@@ -35,7 +33,7 @@ angular.module('hornetApp')
 
   this.Launch = function(instance) {
     var deferred = $q.defer();
-    $http.post(hornetBaseUrl+'/launch', instance).success(function (data) {
+    $http.post(CONFIG.hornetBaseUrl+'/launch', instance).success(function (data) {
       console.log('Data', data);
       deferred.resolve(data);
     }).error(function(data, status, headers, config) {
@@ -50,7 +48,7 @@ angular.module('hornetApp')
 
   this.Config = function() {
     var deferred = $q.defer();
-    $http.get(hornetBaseUrl+'/config').success(function (data){
+    $http.get(CONFIG.hornetBaseUrl+'/config').success(function (data){
       console.log('Data', data);
       deferred.resolve(data);
     }).error(function(data, status, headers, config) {
@@ -64,7 +62,7 @@ angular.module('hornetApp')
   };
   this.SetConfig = function(data) {
     var deferred = $q.defer();
-    $http.post(hornetBaseUrl+'/config',data).success(function (data){
+    $http.post(CONFIG.hornetBaseUrl+'/config',data).success(function (data){
       console.log('Data', data);
       deferred.resolve(data);
     }).error(function(data, status, headers, config) {
